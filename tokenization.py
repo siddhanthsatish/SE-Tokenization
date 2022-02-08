@@ -22,10 +22,11 @@ for a in matches:
   if a not in stopwords:
     res.append(a)
 
+vowels = ['a', 'e', 'i','o', 'u']
+
 # res= ['stresses','misses', 'gaps', 'jeeps', 'cried', 'ties'] porter stemming step 1a 
 # porter stemming step 1a
 res2 = []
-vowels = ['a', 'e', 'i','o', 'u']
 for i in res:
     k = i
     if(len(i)>3):
@@ -43,12 +44,91 @@ for i in res:
     res2.append(k)
 
 
+# res2 = ['agreed', 'goateedly','sauteedly','toupeedly', 'decreedly' ]
+# res2 = ['pirating', 'abling', 'hoping']
+#porter stemming step 1b
+res3 = []
+for i in res2:
+    k = i
+    if(len(i)>3):
+        if(i[-3:]=='eed'):
+            for j in range(len(i[:-3])):
+                if i[j] in vowels:
+                    if i[j+1] not in vowels:
+                        k = i[:-1]
+                        break
+    if(len(i)>4):
+        if(i[-2:]=='ed'):
+            for j in range(len(i[:-2])):
+                if i[j] in vowels:
+                    k = i[:-2]
+                    if(k[-2:]=='at' or k[-2:]=='bl' or k[-2:]=='iz'):
+                        k = k + 'e'
+                        break
+                    elif (k[-1]==k[-2]) and (k[-2:]!='ll' or k[-2:]!='ss' or k[-2:]!='zz'):
+                        k = k[:-1]
+                        break
+                    elif len(k) < 4:
+                        k = k + 'e'
+                        break
+        if(i[-4:]=='edly'):
+            for j in range(len(i[:-4])):
+                if i[j] in vowels:
+                    k = i[:-4]
+                    if(k[-2:]=='at' or k[-2:]=='bl' or k[-2:]=='iz'):
+                        k = k + 'e'
+                        break
+                    elif (k[-1]==k[-2]) and (k[-2:]!='ll' or k[-2:]!='ss' or k[-2:]!='zz'):
+                        k = k[:-1]
+                        break
+                    elif len(k) < 4:
+                        k = k + 'e'
+                        break
+        if(i[-3:]=='ing'):
+            for j in range(len(i[:-3])):
+                if i[j] in vowels:
+                    k = i[:-3]
+                    if(k[-2:]=='at' or k[-2:]=='bl' or k[-2:]=='iz'):
+                        k = k + 'e'
+                        break
+                    elif (k[-1]==k[-2]) and (k[-2:]!='ll' or k[-2:]!='ss' or k[-2:]!='zz'):
+                        k = k[:-1]
+                        break
+                    elif len(k) < 4:
+                        k = k + 'e'
+                        break
+    if(len(i)>5):
+        if(i[-5:]=='eedly'):
+            for j in range(len(i[:-5])):
+                if i[j] in vowels:
+                    if i[j+1] not in vowels:
+                        k = i[:-3]
+                        break
+        if(i[-5:]=='ingly'):
+            for j in range(len(i[:-5])):
+                if i[j] in vowels:
+                    k = i[:-5]
+                    if(k[-2:]=='at' or k[-2:]=='bl' or k[-2:]=='iz'):
+                        k = k + 'e'
+                        break
+                    elif (k[-1]==k[-2]) and (k[-2:]!='ll' or k[-2:]!='ss' or k[-2:]!='zz'):
+                        k = k[:-1]
+                        break
+                    elif len(k) < 4:
+                        k = k + 'e'
+                        break
+    res3.append(k)
 
+
+def first_vowel(s):
+    for index, char in enumerate(s):
+        if char in 'aeiou':
+            return index
 
 # print(lines)
 # print(sen)
-print(str(res))
-print(str(res2))
+# print(str(res))
+print(str(res3))
 # print(words)
 # lines = lines.replace(".", "")
 # spaces = r"\s+"
