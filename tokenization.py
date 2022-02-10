@@ -1,7 +1,7 @@
 import re
 from pprint import pprint
 from collections import Counter
-
+import matplotlib.pyplot as plt
 
 
 
@@ -102,55 +102,62 @@ def porter_stemming(res):
                             break
         res3.append(k)
     return res3
+    
+def vocab_graph(matches):
+    count = 0
+    vocablen = []
+    wordslen = []
+    vocab = set()
+    for i in range(len(matches)):
+        if(matches[i] not in  vocab):
+            vocab.add(matches[i])
+            count += 1
+            vocablen.append(count)
+        else:
+            vocablen.append(count)
+        wordslen.append(i)
+    print(plt.plot(wordslen, vocablen))
+    plt.show()
 
-#main control of PART A
-with open('tokenization-input-part-A.txt', 'r') as f:
-    lines = f.read()
-matches = tokenization(lines)
-poststop = stop_word_removal(matches)
-poststem = porter_stemming(poststop)
-file1 = open("tokenized.txt","w")
-for i in poststem:
-    file1.write(i +"\n")
-file1 = open("tokenized.txt","r+") 
-# print(file1.read())
+def parta():
+    #main control of PART A
+    with open('tokenization-input-part-A.txt', 'r') as f:
+        lines = f.read()
+    matches = tokenization(lines)
+    poststop = stop_word_removal(matches)
+    poststem = porter_stemming(poststop)
+    file1 = open("tokenized.txt","w")
+    for i in poststem:
+        file1.write(i +"\n")
+    file1 = open("tokenized.txt","r+") 
+    # print(file1.read())
+
+def partb():
+    #main control of PART B
+    with open('tokenization-input-part-B.txt', 'r') as f:
+        lines = f.read()
+
+    matches = tokenization(lines)
+    poststop = stop_word_removal(matches)
+    poststem = porter_stemming(poststop)
+    track = Counter(poststem)
+    mostcommon = track.most_common(300)
+    print(mostcommon)
+    file = open("terms.txt","w")
+    for i in mostcommon:
+        file.write(i[0]+ " " + str(i[1]) + "\n")
+    file = open("terms.txt","r+") 
+    graph = vocab_graph(poststem)
+
+if __name__ == "__main__":
+    parta()
+    partb()
 
 
-#main control of PART B
-with open('tokenization-input-part-B.txt', 'r') as f:
-    lines2 = f.read()
-
-matches2 = tokenization(lines2)
-poststop2 = stop_word_removal(matches2)
-poststem2 = porter_stemming(poststop2)
-track = Counter(poststem2)
-track = track.most_common(300)
-print(track)
-file2 = open("terms.txt","w")
-for i in track:
-    file2.write(i[0]+ " " + str(i[1]) + "\n")
-file2 = open("terms.txt","r+") 
 
 
 
 
-# # print(poststem)
-# file1 = open("myfile.txt","w")
-# for i in poststem:
-#     file1.write(i +"\n")
-# file1 = open("myfile.txt","r+") 
-# print(file1.read())
 
 
-# print(lines)
-# print(sen)
-# print(str(res))
-# print(str(res3))
-# print(words)
-# lines = lines.replace(".", "")
-# spaces = r"\s+"
-# abrv = r"\b(?:[A-Z].[A-Z]*){2,}"
 
-# matches = re.findall(r'(([A-Z][.])+)', lines)
-# matches = re.findall(r'([a-zA-Z](\.[a-zA-Z])+)\.', lines)
-# sen = re.sub('([a-zA-Z](\.[a-zA-Z])+)\.', r'[a-zA-Z]([a-zA-Z]+)' , lines)
