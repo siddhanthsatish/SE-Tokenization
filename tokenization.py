@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 
 
 
-# lines = "RegExr u.s.a was created by gskinner.com, and is proudly hosted by Media Temple. Edit the Expression & Text to see matches. Roll over matches or the expression for details. PCRE & JavaScript flavors of RegEx are supported. Validate your expression with Tests mode.The side bar includes a Cheatsheet, full Reference, and Help. You can also Save & Share with the Community, and view patterns you create or favorite in My Patterns.Explore results with the Tools below. Replace & List output custom results. Details lists capture groups. Explain describes your expression in plain English."
 # 1. tokenisation
 def tokenization(lines):
     sen  = re.sub(r'(?<!\d)\.(?!\d)', "", lines) #1(a) revised regular expression with back references // fixes all the abbrevations
@@ -30,9 +29,7 @@ def stop_word_removal(matches):
 # 3. Implementing first two steps of porter stemming
 def porter_stemming(res):
     vowels = ['a', 'e', 'i','o', 'u']
-    # res= ['stresses','misses', 'gaps', 'jeeps', 'cried', 'ties']  
-    # res= ['feeding', 'being', 'doing', 'going', 'oping','sing'] 
-    # res = ['hundred']
+
     # porter stemming step 1a
     res2 = []
     for i in res:
@@ -53,9 +50,7 @@ def porter_stemming(res):
         res2.append(k)
 
 
-    # res2 = ['agreed', 'goateedly','sauteedly','toupeedly', 'decreedly' ]
-    # res2 = ['stressing', 'falling', 'hoping', 'sled', 'medly', 'falling']
-    # res2 = ['whales']
+
     #porter stemming step 1b
     res3 = []
     for i in res2:
