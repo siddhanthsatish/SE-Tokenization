@@ -1,5 +1,5 @@
 early
-examples
+example
 abbreviation
 english
 source
@@ -16,10 +16,10 @@ term
 vernacular
 pan
 european
-predates
+predate
 modern
 english
-examples
+example
 initialism
 class
 latin
@@ -66,17 +66,17 @@ good
 etymology
 word
 alphabet
-comes
+come
 middle
 english
 late
 latin
 alphabetum
 turn
-derives
+derive
 ancient
 greek
-alphabetos
+alphabeto
 alpha
 beta
 two
@@ -88,5 +88,5 @@ learn
 alphabet
 call
 learn
-ones
+one
 abc
