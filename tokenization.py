@@ -4,7 +4,6 @@ from collections import Counter
 import matplotlib.pyplot as plt
 
 
-
 # 1. tokenisation
 def tokenization(lines):
     sen  = re.sub(r'(?<!\d)\.(?!\d)', "", lines) #1(a) revised regular expression with back references // fixes all the abbrevations
@@ -48,8 +47,6 @@ def porter_stemming(res):
             if(i[-3:]=='ies' or i[-3:]=='ied'): # ties -> tie, cries-> cri
                 k = i[:-2]
         res2.append(k)
-
-
 
     #porter stemming step 1b
     res3 = []
@@ -118,16 +115,15 @@ def vocab_graph(matches):
         else:
             vocablen.append(count) #appending vocab count even when it doesnt increase 
         wordslen.append(i) #appending each timestamp to record increase in total words
-    print(plt.plot(wordslen, vocablen))
+    plt.plot(wordslen, vocablen)
     plt.show()
 
 #main control of PART A
 def parta():
-
+    
     #opening input text file
     with open('tokenization-input-part-A.txt', 'r') as f:
         lines = f.read()
-    # lines =" U.S.A. 92.3 hoping pha.r.ma" #defects
 
     #tokenization, stop-word removal, stemming
     matches = tokenization(lines)
@@ -173,12 +169,25 @@ def partb():
     graph = vocab_graph(poststem)
     return mostcommon
 
+def unit_tests():
+    # small example taken here to show the the testing of the code
+    assert tokenization('My name is S.E.I.N.F.E.L.D. I am a Comedian.') == ['my', 'name', 'is', 'seinfeld', 'i', 'am', 'a', 'comedian'], "should be ['my', 'name', 'is', 'seinfeld', 'i', 'am', 'a', 'comedian']"
+    assert tokenization('Seinfeld has 200,000,000 dollars.') == ['seinfeld', 'has', '200','000', '000', 'dollars'], "should be ['seinfeld', 'has', '200','000', '000', 'dollars']"
+    print('Tokenization Works!')
+
+    assert stop_word_removal(['my', 'name', 'is', 'seinfeld', 'i', 'am', 'a', 'comedian']) == ['name', 'seinfeld', 'comedian'], "should be ['name', 'seinfeld', 'comedian']"
+    assert stop_word_removal(['seinfeld', 'has', '200','000', '000', 'dollars']) == ['seinfeld', '200', '000', '000', 'dollars'], "should be ['seinfeld', '200', '000', '000', 'dollars']"
+    print('Stopword Removal Works!')
+
+    assert porter_stemming(['name', 'seinfeld', 'comedian']) == ['name', 'seinfeld', 'comedian'], "should be ['name', 'seinfeld', 'comedian']]"
+    assert porter_stemming(['seinfeld', '200', '000', '000', 'dollars']) == ['seinfeld', '200', '000', '000', 'dollar'], "should be ['seinfeld', '200', '000', '000', 'dollars']"
+    print('Stemming Works!')
+    
+
 if __name__ == "__main__":
+    print('PART A Results -->')
     parta()
+    print('PART B Results -->')
     partb()
-
-
-
-
-
+    unit_tests() 
 
